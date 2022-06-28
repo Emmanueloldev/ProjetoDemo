@@ -16,35 +16,34 @@ import org.springframework.web.bind.annotation.RestController;
 import com.projetoapirest.domain.Usuario;
 import com.projetoapirest.domain.repositories.UsuarioRepository;
 
-
-
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository repositories;
-	
+
 	@GetMapping
-	public List<Usuario> listaUsuarios(){
-		return (List<Usuario>)repositories.findAll();
+	public List<Usuario> listaUsuarios() {
+		return (List<Usuario>) repositories.findAll();
 	}
-	
+
 	@PostMapping
 	public Usuario criarUsuario(@RequestBody Usuario usuario) {
 		Usuario novoUsuario = repositories.save(usuario);
 		return novoUsuario;
 	}
-	
+
 	@PutMapping
 	public Usuario editarUsuario(@RequestBody Usuario usuario) {
 		Usuario novoUsuario = repositories.save(usuario);
 		return novoUsuario;
-	
-}
+
+	}
+
 	@DeleteMapping("/{id}")
 	public Optional<Usuario> excluirUsuario(@PathVariable Integer id) {
-		Optional<Usuario> delUsuario= repositories.findById(id);
+		Optional<Usuario> delUsuario = repositories.findById(id);
 		repositories.deleteById(id);
 		return delUsuario;
 	}
