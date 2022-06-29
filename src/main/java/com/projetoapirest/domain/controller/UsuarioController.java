@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,28 +25,29 @@ public class UsuarioController {
 	private UsuarioRepository repositories;
 
 	@GetMapping
-	public List<Usuario> listaUsuarios() {
-		return (List<Usuario>) repositories.findAll();
+	public ResponseEntity <List<Usuario>> listaUsuarios() {
+		List<Usuario> lista = (List<Usuario>) repositories.findAll();
+		return ResponseEntity.status(200).body(lista);
 	}
 
 	@PostMapping
-	public Usuario criarUsuario(@RequestBody Usuario usuario) {
+	public ResponseEntity <Usuario> criarUsuario(@RequestBody Usuario usuario) {
 		Usuario novoUsuario = repositories.save(usuario);
-		return novoUsuario;
+		return ResponseEntity.status(201).body(novoUsuario);
 	}
 
 	@PutMapping
-	public Usuario editarUsuario(@RequestBody Usuario usuario) {
+	public ResponseEntity <Usuario> editarUsuario(@RequestBody Usuario usuario) {
 		Usuario novoUsuario = repositories.save(usuario);
-		return novoUsuario;
+		return ResponseEntity.status(201).body(novoUsuario);
 
 	}
 
 	@DeleteMapping("/{id}")
-	public Optional<Usuario> excluirUsuario(@PathVariable Integer id) {
-		Optional<Usuario> delUsuario = repositories.findById(id);
+	public ResponseEntity <Optional <Usuario>> excluirUsuario(@PathVariable Integer id) {
+		Optional <Usuario> delUsuario = repositories.findById(id);
 		repositories.deleteById(id);
-		return delUsuario;
+		return ResponseEntity.status(204).body(delUsuario);
 	}
 
 }
