@@ -3,7 +3,6 @@ package com.projetoapirest.domain.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,40 +15,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetoapirest.domain.Usuario;
-import com.projetoapirest.domain.repositories.UsuarioRepository;
+import com.projetoapirest.domain.services.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-	@Autowired
-	private UsuarioRepository repositories;
+	//Excluimos o @Autowired
+	//          private UsuarioRepository repositories; por conta que estamos usando o SERVICE
+	
+	public  UsuarioService usuarioService;
+	
+	private UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 
+	}
+	
 	@GetMapping
 	public ResponseEntity <List<Usuario>> listaUsuarios() {
-		List<Usuario> lista = (List<Usuario>) repositories.findAll();
-		return ResponseEntity.status(200).body(lista);
+		return ResponseEntity.status(200).body(usuarioService.listarUsuario());
 	}
 
 	@PostMapping
 	public ResponseEntity <Usuario> criarUsuario(@RequestBody Usuario usuario) {
-		Usuario novoUsuario = repositories.save(usuario);
-		return ResponseEntity.status(201).body(novoUsuario);
+		return ResponseEntity.status(201).body(usuarioService.criarUsuario(usuario));
 	}
 
 	@PutMapping
 	public ResponseEntity <Usuario> editarUsuario(@RequestBody Usuario usuario) {
-		Usuario novoUsuario = repositories.save(usuario);
-		return ResponseEntity.status(201).body(novoUsuario);
+		return ResponseEntity.status(201).body(usuarioService.editarUsuario(usuario));
 
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity <Optional <Usuario>> excluirUsuario(@PathVariable Integer id) {
-		Optional <Usuario> delUsuario = repositories.findById(id);
-		repositories.deleteById(id);
-		return ResponseEntity.status(204).body(delUsuario);
+		usuarioService.excluirUsuario(id);
+		return ResponseEntity.status(204).build();   // build = não diz o usuario excluido
 	}
 
 }
