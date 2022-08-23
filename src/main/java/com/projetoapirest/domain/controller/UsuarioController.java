@@ -36,9 +36,15 @@ public class UsuarioController {
 	public ResponseEntity <List<Usuario>> listaUsuarios() {
 		return ResponseEntity.status(200).body(usuarioService.listarUsuario());
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Integer> umUsuario(@PathVariable Integer id){
+		usuarioService.umUsuario(id);
+		return ResponseEntity.status(200).body(id);
+	}
 
 	@PostMapping
-	public ResponseEntity <Usuario> criarUsuario(@RequestBody Usuario usuario) {
+	public ResponseEntity <Usuario> criarUsuario(@RequestBody Usuario usuario) {  //@ResquestBody = Validação de objeto
 		return ResponseEntity.status(201).body(usuarioService.criarUsuario(usuario));
 	}
 

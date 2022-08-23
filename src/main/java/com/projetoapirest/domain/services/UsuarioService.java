@@ -1,6 +1,7 @@
 package com.projetoapirest.domain.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,13 @@ public class UsuarioService {
 	}
 	
 	public List<Usuario> listarUsuario(){
-		List<Usuario> lista = repository.findAll();
-		return lista;
+		return repository.findAll();
+		
+	}
+	
+	public Optional<Usuario> umUsuario(Integer id){
+		Optional<Usuario> idUsuario = repository.findById(id);
+		return idUsuario;
 	}
 	
 	public Usuario criarUsuario(Usuario usuario) {
