@@ -20,17 +20,20 @@ import com.projetoapirest.domain.services.UsuarioService;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/usuarios")
+
 public class UsuarioController {
 
-	//Excluimos o @Autowired
-	//          private UsuarioRepository repositories; por conta que estamos usando o SERVICE
+	//EXCLUIMOS o @Autowired
+	//          private UsuarioRepository repositories; POR CONTA QUE ESTAMOS USANDO o SERVICE
 	
-	public  UsuarioService usuarioService;
 	
-	private UsuarioController(UsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
+	private  UsuarioService usuarioService;
+	
 
+	public  UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
+	
 	
 	@GetMapping
 	public ResponseEntity <List<Usuario>> listaUsuarios() {
@@ -44,20 +47,20 @@ public class UsuarioController {
 	}
 
 	@PostMapping
-	public ResponseEntity <Usuario> criarUsuario(@RequestBody Usuario usuario) {  //@ResquestBody = Validação de objeto
+	public ResponseEntity <Usuario> criarUsuario(@RequestBody Usuario usuario) {  //@ResquestBody = VALIDAÇÃO DE OBJETO
 		return ResponseEntity.status(201).body(usuarioService.criarUsuario(usuario));
 	}
 
 	@PutMapping
 	public ResponseEntity <Usuario> editarUsuario(@RequestBody Usuario usuario) {
-		return ResponseEntity.status(201).body(usuarioService.editarUsuario(usuario));
+		return ResponseEntity.status(200).body(usuarioService.editarUsuario(usuario));
 
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity <Optional <Usuario>> excluirUsuario(@PathVariable Integer id) {
 		usuarioService.excluirUsuario(id);
-		return ResponseEntity.status(204).build();   // build = não diz o usuario excluido
+		return ResponseEntity.status(204).build();   // build = NÃO DIZ O USUARIO EXCLUIDO
 	}
 
 }

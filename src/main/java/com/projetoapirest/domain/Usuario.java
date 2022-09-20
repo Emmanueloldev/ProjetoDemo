@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -14,19 +15,19 @@ public class Usuario {
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	
-	@Column(name = "ids")
+	@Column(name = "Ids")
 	private Integer id;
 	
-	@Column(name = "nomes", length = 100, nullable = true)
+	@Column(name = "Nomes", length = 100, nullable = true)
 	private String nome;
 	
-	@Column(name = "emails", length = 50, nullable = true)
+	@Column(name = "Emails", length = 50, nullable = true)
 	private String email;
 	
-	@Column(name = "senhas", columnDefinition = "TEXT", nullable = true)
+	@Column(name = "Senhas", columnDefinition = "TEXT", nullable = true)
 	private String senha;
 	
-	@Column(name = "telefones", length = 50, nullable = true )
+	@Column(name = "Telefones", length = 50, nullable = true )
 	private String telefone;
 	
 	public Usuario() {
