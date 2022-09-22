@@ -3,6 +3,7 @@ package com.projetoapirest.domain.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,6 +62,16 @@ public class UsuarioController {
 	public ResponseEntity <Optional <Usuario>> excluirUsuario(@PathVariable Integer id) {
 		usuarioService.excluirUsuario(id);
 		return ResponseEntity.status(204).build();   // build = NÃO DIZ O USUARIO EXCLUIDO
+	}
+	
+	@PostMapping("/login")  // TESTE DE LOGIN, FAZ A VERIFICACAO COMPARANDO A SENHA SE ESTA CORRETA
+	public ResponseEntity<Usuario> validSenha(@RequestBody Usuario usuario){
+	Boolean valid = usuarioService.validarSenha(usuario);
+	if(!valid) {
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	}
+	return ResponseEntity.status(200).build();
+	
 	}
 
 }

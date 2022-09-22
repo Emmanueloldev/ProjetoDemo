@@ -40,6 +40,8 @@ public class UsuarioService {
 	}
 	
 	public Usuario editarUsuario(Usuario usuario) {
+		String encoder = this.passwordEncoder.encode(usuario.getSenha());
+		usuario.setSenha(encoder);
 		Usuario usuarioNovo = usuarioRepository.save(usuario);
 		return usuarioNovo;
 	}
@@ -47,5 +49,11 @@ public class UsuarioService {
 	public Boolean excluirUsuario(Integer id) {  // NÃO RETORNA O USUARIO EXCLUIDO
 		usuarioRepository.deleteById(id);
 		return true;
+	}
+
+	public Boolean validarSenha(Usuario usuario) {
+		String senha = usuarioRepository.getReferenceById(usuario.getId()).getSenha();
+		Boolean valid = passwordEncoder.matches(usuario.getSenha(), senha); //COMPARA O GETSENHA DO BANCO COM A SENHA QUE TA CHEGANDO
+		return valid;
 	}
 }
