@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -18,17 +21,25 @@ public class Usuario {
 	@Column(name = "Ids")
 	private Integer id;
 	
-	@Column(name = "Nomes", length = 100, nullable = true)
+	@NotBlank(message= "O nome é Obrigatório!")
+	@Size(min = 3, message="O nome teve conter no mínimo 3 caracteres!")
+	@Column(name = "Nomes", length = 100, nullable = false)
 	private String nome;
 	
-	@Column(name = "Emails", length = 50, nullable = true)
+	@Email(message="Insira um email válido!")
+	@NotBlank(message= "O email é Obrigatório!")
+	@Column(name = "Emails", length = 50, nullable = false)
 	private String email;
 	
-	@Column(name = "Senhas", columnDefinition = "TEXT", nullable = true)
+	@NotBlank(message= "A senha é Obrigatória!")
+	@Column(name = "Senhas", columnDefinition = "TEXT", nullable = false)
 	private String senha;
-	
-	@Column(name = "Telefones", length = 50, nullable = true )
+
+	@NotBlank(message= "O telefone é Obrigatório!")
+	@Column(name = "Telefones", length = 50, nullable = false )
 	private String telefone;
+	
+	
 	
 	public Usuario() {
 		
