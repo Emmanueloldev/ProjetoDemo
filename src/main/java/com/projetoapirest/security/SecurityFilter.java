@@ -19,7 +19,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 		// TODO Auto-generated method stub
 		
 		filterChain.doFilter(request, response); //INTERCEPTA(RECEBE) A REQUISIÇÃO E MANDA UMA RESPOSTA
-		
+		//CHAMA OS MÉTODOS DA CLASSE TOKEN UTIL
 	}
-
 }
