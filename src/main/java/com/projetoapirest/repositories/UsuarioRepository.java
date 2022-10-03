@@ -1,4 +1,4 @@
-package com.projetoapirest.domain.repositories;
+package com.projetoapirest.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

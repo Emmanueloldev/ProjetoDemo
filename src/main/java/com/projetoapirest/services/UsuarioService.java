@@ -1,4 +1,4 @@
-package com.projetoapirest.domain.services;
+package com.projetoapirest.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.projetoapirest.domain.Usuario;
-import com.projetoapirest.domain.repositories.UsuarioRepository;
+import com.projetoapirest.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioService {

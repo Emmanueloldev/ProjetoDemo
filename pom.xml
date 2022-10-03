@@ -9,11 +9,11 @@
 		<version>2.7.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.projetoapi</groupId>
+	<groupId>com.projetoapirest</groupId>
 	<artifactId>projetodemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>projetodemo</name>
-	<description>projetoapi</description>
+	<description>projetoapirest</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

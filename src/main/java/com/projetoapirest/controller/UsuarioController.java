@@ -1,4 +1,4 @@
-package com.projetoapirest.domain.controller;
+package com.projetoapirest.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetoapirest.domain.Usuario;
-import com.projetoapirest.domain.services.UsuarioService;
+import com.projetoapirest.services.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
