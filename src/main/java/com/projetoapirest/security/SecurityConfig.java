@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
@@ -15,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		httpSec.csrf().disable() // DESABILITANDO ACESSOS EXTERNOS DA API PARA FAZER A NOSSA AUTENTICAÇÃO
 		              .authorizeHttpRequests() // PERMITE O ACESSO AOS END POINTS
-		              .antMatchers(HttpMethod.GET, "/usuarios").permitAll()
+		              .antMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
 		              .anyRequest().authenticated().and().cors();
 		
 		httpSec.addFilterBefore(new SecurityFilter(), UsernamePasswordAuthenticationFilter.class); //OBJETO DE AUTENTICATION

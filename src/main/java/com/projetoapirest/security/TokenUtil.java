@@ -25,7 +25,7 @@ public class TokenUtil {
 	private static final String SECRET_KEY = "12345678901234567890123456789012";
 	private static final String EMISSOR = "EOL";
 	
-	private static String createToken( Usuario usuario) { // MÉTODO PARA CRIAR TOKEN
+	public static String createToken(Usuario usuario) { // MÉTODO PARA CRIAR TOKEN
 		Key secretKey = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 		
 		String token = Jwts.builder()
@@ -50,7 +50,7 @@ public class TokenUtil {
 		return username != null && username.length()>0;
 	}
 	
-	public static Authentication validate(HttpServletRequest request) {
+	public static Authentication validate(HttpServletRequest request) {  //VALIDAÇÃO
 		String token = request.getHeader(HEADER);
 		token = token.replace(PREFIX, "");
 		
@@ -68,6 +68,4 @@ public class TokenUtil {
 		
 		return null;
 	}
-
-
 }

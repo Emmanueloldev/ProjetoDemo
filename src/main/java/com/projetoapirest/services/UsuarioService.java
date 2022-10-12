@@ -3,12 +3,19 @@ package com.projetoapirest.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.projetoapirest.domain.Usuario;
+import com.projetoapirest.dto.UsuarioDto;
 import com.projetoapirest.repositories.UsuarioRepository;
+import com.projetoapirest.security.Token;
+import com.projetoapirest.security.TokenUtil;
+
+
 
 @Service
 public class UsuarioService {
@@ -55,5 +62,19 @@ public class UsuarioService {
 		String senha = usuarioRepository.getReferenceById(usuario.getId()).getSenha();
 		Boolean valid = passwordEncoder.matches(usuario.getSenha(), senha); //COMPARA O GETSENHA DO BANCO COM A SENHA QUE TA CHEGANDO
 		return valid;
+	}
+
+	public Token gerarToken(@Valid UsuarioDto usuario) {
+		Usuario user = usuarioRepository.findByNomeOrEmail(usuario.getNome(), usuario.getEmail());
+		
+		if( user !=null ) { // VERIFICA SE O USUARIO EXISTE
+			
+			Boolean valid = passwordEncoder.matches(usuario.getSenha(), user.getEmail());
+		
+			if (valid) {
+				return new Token(TokenUtil.createToken(user));
+			}
+		}
+		return null;
 	}
 }

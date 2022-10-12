@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,7 +25,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projetoapirest.domain.Usuario;
+import com.projetoapirest.dto.UsuarioDto;
+import com.projetoapirest.security.Token;
 import com.projetoapirest.services.UsuarioService;
+
+
 
 @RestController
 @CrossOrigin("*")
@@ -73,12 +78,13 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/login")  // TESTE DE LOGIN, FAZ A VERIFICACAO COMPARANDO A SENHA SE ESTA CORRETA
-	public ResponseEntity<Usuario> validSenha(@Valid @RequestBody Usuario usuario){
-	Boolean valid = usuarioService.validarSenha(usuario);
-	if(!valid) {
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	public ResponseEntity<Token> logar (@Valid @RequestBody UsuarioDto usuario){
+	Token token = usuarioService.gerarToken(usuario); //GERA TOKEN P ESSE USUARIO
+			
+	if( token != null) {
+		return ResponseEntity.ok(token);
 	}
-	return ResponseEntity.status(200).build();
+	return ResponseEntity.status(403).build();
 	
 	}
 	
